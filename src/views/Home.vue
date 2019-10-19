@@ -8,7 +8,7 @@
     <van-pagination 
       v-model="currentPage" 
       :total-items="totalItems" 
-      :items-per-page="25"
+      :items-per-page="perItems"
       @change="onChange"
     />
   </div>
@@ -35,18 +35,21 @@ export default {
     return  {
       currentPage: 1,
       totalItems:500,
-      perItems:25,
+      perItems:100,
       totalData:data,
-      showData:data.slice(0,25)
+      showData:data.slice(0,100)
     }
   },
   methods: {
     onChange (event) {
-      this.currentPage = event
-      let startIndex = this.perItems*(event-1)
-      let endIndex = startIndex + this.perItems
-      this.showData = this.totalData.slice(startIndex,endIndex)
-      console.log(this.totalData.slice(startIndex,endIndex))
+      this.showData=[]
+      setTimeout(() => {
+        this.currentPage = event
+        let startIndex = this.perItems*(event-1)
+        let endIndex = startIndex + this.perItems
+        this.showData = this.totalData.slice(startIndex,endIndex)
+        console.log(this.totalData.slice(startIndex,endIndex))
+      }, 10);
     }
   }
 }
